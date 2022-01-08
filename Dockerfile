@@ -1,16 +1,13 @@
-FROM ubuntu:20.04
+FROM ideasofcharan/kali:xrdp
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    git \
-    bash \
-    docker.io \
-    curl \
-    sudo \
-    systemd
 
-# Enables Docker starting with systemd
-RUN systemctl enable docker
-RUN docker run --rm -it -p 7080:7080 codercom/coder:1.25.1
-# use systemd as the init
-RUN ln -s /lib/systemd/systemd /sbin/init
+COPY novnc.zip /novnc.zip
+COPY . /system
+
+RUN unzip -o /novnc.zip -d /usr/share
+RUN rm /novnc.zip
+
+RUN chmod +x /system/conf.d/websockify.sh
+RUN chmod +x /system/supervisor.sh
+
+CMD ["/system/supervisor.sh"]
