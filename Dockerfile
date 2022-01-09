@@ -28,7 +28,7 @@ RUN apt-get update && \
     apt install falkon -y  && \
     apt-get autoclean -y  && \
     apt-get autoremove -y
-RUN apt-get install -y xscreensaver xscreensaver-data-extra xscreensaver-gl-extra
+#RUN apt-get install -y xscreensaver xscreensaver-data-extra xscreensaver-gl-extra
 
 COPY novnc.zip /novnc.zip
 COPY . /system
